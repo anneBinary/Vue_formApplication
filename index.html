@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表单与v-model</title>
+</head>
+<body>
+<!--v-model实现数据的双向绑定-->
+<div id="app">
+    <input v-model = "message" type="text" placeholder="请输入……">
+    <p>小主输入的数据是：{{message}}</p>
+</div>
+
+<h3>
+1.2.:使用v-model时，如果用中文输入法输入中文，一般在选定词组前，Vue数据是不会更新的，当敲下汉字是才会更新。
+<br>可用@input代替 实例如下:
+</h3>
+<div id="a_input">
+    <input type="text" placeholder="请输入……" @input = "handleInput">
+    <p>用@input代替,实时显示输入为：{{message}}</p>
+</div>
+<h3>2.1:单选按钮不需要v-model,直接使用v-bind绑定一个布尔类型的值，为真是选中</h3>
+<div id="ex_audio">
+    <input type="radio" :checked = "picked">
+    <label>单选按钮</label>
+</div>
+<h3>2.2:如果组合使用互斥效果，就需要配合v-model来实现</h3>
+<div id="many_audio">
+    <input type="radio" v-model = "picked" value="html" id="html">
+    <label for="html">HTML</label>
+    <input type="radio" v-model = "picked" value="css" id="css">
+    <label for="css">CSS</label>
+    <input type="radio" v-model = "picked" value="js" id="js">
+    <label for="js">JS</label>
+    <br>
+    <p>你选择的选项是：{{picked}}</p>
+</div>
+<h3>3.1复选框：复选框和单选框不同的是，单独使用时也是使用v-model</h3>
+<div id="ex_checkbox">
+    <input type="checkbox" v-model="checked" id="checked">
+    <label for="checked">选择状态：{{checked}}</label>
+</div>
+<h3>3.2多个复选框：绑定到同一个数组类型的数据</h3>
+<div id="many_checkbox">
+    <input type="checkbox" v-model="checked" value="html5" id="html5">
+    <label for="html5">HTML5</label>
+    <input type="checkbox" v-model="checked" value="css3" id="css3">
+    <label for="css3">CSS3</label>
+    <input type="checkbox" v-model="checked" value="es7" id="es7">
+    <label for="es7">ES7</label>
+    <p>选择状态：{{checked}}</p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    var app = new Vue({
+        el:'#app',
+        data:{
+           message:''
+        }
+    });
+    var a_input = new Vue({
+        el: '#a_input',
+        data:{
+            message: ''
+        },
+        methods:{
+            handleInput: function (e) {
+                this.message = e.target.value;
+            }
+        }
+    });
+    var ex_audio = new Vue({
+        el: '#ex_audio',
+        data:{
+            picked:true,
+        }
+    });
+    var many_audio = new Vue({
+        el: '#many_audio',
+        data:{
+            picked:'js'
+        }
+    });
+    var ex_checkbox = new Vue({
+        el: '#ex_checkbox',
+        data:{
+            checked:true
+        }
+    });
+    var many_checkbox = new Vue({
+        el: '#many_checkbox',
+        data:{
+            checked:['html5','es7']
+        }
+    })
+</script>
+</body>
+</html>
